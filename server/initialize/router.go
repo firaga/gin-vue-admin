@@ -25,6 +25,7 @@ func Routers() *gin.Engine {
 	InstallPlugin(Router) // 安装插件
 	systemRouter := router.RouterGroupApp.System
 	exampleRouter := router.RouterGroupApp.Example
+	pkgRouter := router.RouterGroupApp.MyPkg
 	// 如果想要不使用nginx代理前端网页，可以修改 web/.env.production 下的
 	// VUE_APP_BASE_API = /
 	// VUE_APP_BASE_PATH = http://localhost
@@ -84,6 +85,9 @@ func Routers() *gin.Engine {
 	{
 		pkgTest2Router := router.RouterGroupApp.PkgTest2
 		pkgTest2Router.InitTestStructTwoRouter(PrivateGroup)
+	}
+	{
+		pkgRouter.InitMyApiRouter(PublicGroup) //手写路由注册api方法
 	}
 
 	global.GVA_LOG.Info("router register success")
